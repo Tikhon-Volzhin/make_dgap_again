@@ -8,6 +8,7 @@ int main()
 	for (int i = 0; i < 100; i++) {
 		array.push_back(i);
 	}
-	return 0;
+	//aHJVKUEVQUYLHWVLRCYUGELFUYCVGEWLIUVHEWLGIUV.KRH.IUVGW.ERUFGVWERUGH
+	//why
 }
 
