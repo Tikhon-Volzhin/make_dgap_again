@@ -48,17 +48,20 @@ int main()
 	std::for_each(P_2.begin(), P_2.end(), [&](int i) { sum += i; });
 	std::cout << sum;
 	//заменяем первые элементы P_2
-	std::replace_if(P_1.begin(), P_1.begin() + 5, true, 1);
+	std::replace_if(P_1.begin(), P_1.begin() + 5, [](int i) {return true; }, 1);
+	std::cout << sum;
 	// последовательность П_3 как разность П_1 и П_2
 	std::vector<int> P_3;
+	std::sort(P_1.begin(), P_1.end());
+	std::sort(P_2.begin(), P_2.end());
 	std::set_difference(P_1.begin(), P_1.end(), P_2.begin(), P_2.end(),
-		P_3.begin());
+	std::inserter(P_3, P_3.begin()));
 	//каждый отрицательный элемент в P_3 заменяем нулем
-	std::replace_if(P_1.begin(), P_1.end(), [](int i) {return i < 0; }, 1);
+	std::replace_if(P_3.begin(), P_3.end(), [](int i) {return i < 0; }, 1);
 	//удаляем нулевые элементы
 	P_3.erase(std::remove_if(P_3.begin(),
 		P_3.end(),
-		[](int i) {return i == 0; }));
+		[](int i) {return i == 0; }), P_3.end());
 	//обратный порядок
 	std::reverse(P_3.begin(), P_3.end());
 	//сортировка P_1, P_2
@@ -67,7 +70,7 @@ int main()
 	//слияние P_1 и P_2 в P_4
 	std::vector<int> P_4;
 	std::set_union(P_1.begin(), P_1.end(),
-		P_2.begin(), P_2.end(), P_4.begin());
+		P_2.begin(), P_2.end(), std::inserter(P_4, P_4.begin()));
 	//вывод массивов
 	std::copy(P_1.begin(), P_1.end(), std::ostream_iterator<int>(std::cout, " "));
 	std::copy(P_2.begin(), P_2.end(), std::ostream_iterator<int>(std::cout, " "));
